@@ -3,12 +3,13 @@ from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from random import choice
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from ui_file import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.x = self.y = self.r = 0
         self.pushButton.clicked.connect(self.run)
 
@@ -24,7 +25,9 @@ class MyWidget(QMainWindow):
         qp.end()
 
     def draw(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        r, g, b = choice(list(range(0, 256))), choice(list(range(0, 256))), choice(
+            list(range(0, 256)))
+        qp.setBrush(r, g, b)
         qp.drawEllipse(self.x, self.y, self.r, self.r)
         self.update()
 
